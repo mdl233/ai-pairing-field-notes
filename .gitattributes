@@ -1,0 +1,17 @@
+# 换行与文本属性纪律
+# 与 docs/01 §K 章（编码与换行坑）保持一致：文本一律 LF，Windows 批处理脚本用 CRLF。
+
+* text=auto eol=lf
+
+# Windows 脚本：cmd.exe 解析器认 CRLF，存成 LF 会把行碎片当命令执行
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+
+# 二进制，不做换行转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.zip binary
+*.gz binary
