@@ -37,7 +37,7 @@ git -c http.sslBackend=openssl clone https://gh-proxy.com/https://github.com/<ow
 https://gh-proxy.com/https://github.com/<owner>/<repo>/releases/download/<tag>/<包名>.tgz
 ```
 
-- **为什么要 `-c http.sslBackend=openssl`**：本机 Git 默认走 Windows 的 `schannel`，在代理镜像下**证书链报错**；换成 openssl 后端即通（这条我踩过一次，前后折腾了十几分钟）。
+- **为什么要 `-c http.sslBackend=openssl`**：Windows 上 Git 默认走 `schannel`，在代理镜像下**证书链报错**；换成 openssl 后端即通（这条我踩过一次，前后折腾了十几分钟）。
 - **不想 clone 整个仓库**、只要几个文件时，用 jsdelivr 更省事：它能把仓库当静态文件服，还能**列出包内所有文件**（先看清单再决定拿什么）。
 - ⚠️ 浏览器能访问 ≠ 命令行能访问。我这台机器上**浏览器的可达性明显好于 node/pwsh 直连**（`registry.npmjs.org` 就是典型：浏览器能开，node 报 `fetch failed`）⇒ **判断"能不能下"要分工具试**。
 
