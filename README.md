@@ -40,7 +40,7 @@
 | **[docs/04](docs/04-ai-ui-and-art-pipeline.md)** | **让 AI 做界面与美术**：界面**用代码做别手绘** · 提示词**必须写设计风格**（越强调"不要"越容易生成）· 本地出图实操 · **出图后让 AI 自己先看一遍** | 用 AI 做游戏 UI / 网页 / 立绘的人 |
 | **[docs/05](docs/05-getting-resources-in-china.md)** | **在国内网络里搞到模型、插件与工具**：下载通道实测表 · 大文件截断与校验 · **下不动就交给人** · 插件安装四步 · **本地小模型（只推荐，不避雷）** | 被"下不下来 / 装不上"卡住过的人 |
 | **[docs/06](docs/06-keeping-the-work.md)** | **把工作留下来的做法**（`03` 的**操作层**，不重述原则）：记录与接力 · **真相源** · **可逆性** · 验证 · 成本 —— 每条都带**实测数字**与**翻车案例** | 想把长期项目"留住"的人 |
-| **[tools/](tools/)** | 6 个**零依赖**脚本（见下） | — |
+| **[tools/](tools/)** | 7 个**零依赖**脚本（见下） | — |
 
 ### tools/ 里的脚本
 
@@ -49,6 +49,7 @@
 | [verify-utf8.mjs](tools/verify-utf8.mjs) | 全文 UTF-8 校验（替代"按固定块切片解码"的误报做法） |
 | [verify-refs.mjs](tools/verify-refs.mjs) | 文档内部引用的**可解析性**检查（找出指向已改名的死链） |
 | [sanitize-check.mjs](tools/sanitize-check.mjs) | **导出/发布前的脱敏关卡**：按"凭证形态"扫描（`sk-` 类 key、密码赋值、私钥块…）+ 自动替换；规则值支持从**环境变量**注入，规则文件不落明文 |
+| [doc-index-check.mjs](tools/doc-index-check.mjs) | **文档库体检**（只读、零依赖）：未登记 / 悬空 / 互指 / 污染 / 豁免五类；**输出必带覆盖度**（防止"什么都没扫到也算干净"） |
 | [local-generate.py](tools/local-generate.py) | 直连**本地 ComfyUI** 出图（只用 Python 标准库） |
 | [cloud-generate.py](tools/cloud-generate.py) | 走**云端 API** 出图（key 从环境变量读；**拿到链接立刻落盘**） |
 | [comfyui-ctl.mjs](tools/comfyui-ctl.mjs) | ComfyUI 的 `status / start / stop`（幂等；**不会堆窗口和标签页**） |
