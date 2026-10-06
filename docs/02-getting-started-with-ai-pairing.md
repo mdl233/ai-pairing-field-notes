@@ -181,7 +181,7 @@
 ```
         .lnk（文件级）                      junction（目录级）
    ┌──────────────┐                    ┌──────────────┐
-   │ 启动DSH.lnk  │ ──▶ 目标程序        │ dsh-runtime\ │ ══▶ 10-runtime\dsh\
+   │ 启动DSH.lnk  │ ──▶ 目标程序        │ ComfyUI\     │ ══▶ 10-runtime\ComfyUI\
    └──────────────┘                    └──────────────┘
    谁认：资源管理器/命令行 start       谁认：**所有程序**（对文件系统透明）
    删它：只删快捷方式                  删它：**只能 rmdir**（del /s 会删进真身）
@@ -189,11 +189,14 @@
 
 （图 4：两种"快捷方式"的本质差别）
 
-**为什么我们非用 junction 不可**：搬迁把目录从旧路径（`<工作区>\dsh-runtime`）移到了新位置（`10-runtime\dsh`），但**代码里 20+ 处硬编码着旧路径**。junction 让**旧路径原样可用**，于是**零改代码、可逆（删链接即回原状）**。这是"用文件系统解决配置问题"的典型手法。
+**为什么我会用到 junction**：搬家的时候，把目录从旧路径移到新位置（例如 `<工作区>\ComfyUI` → `10-runtime\ComfyUI`），但**代码里往往已经写死了旧路径**。junction 让**旧路径原样可用**，于是**零改代码、可逆（删链接即回原状）**。这是"用文件系统解决配置问题"的典型手法。
+
+> ⚠️ **一个"例子会过期、方法不会"的真实例子**：本节早期举的是 `<工作区>\dsh-runtime`（一个指向 `10-runtime\dsh` 的链接）。后来那条运行线整体退役、链接也搬走了 ⇒ **照抄旧例子的命令会报"路径不存在"**。
+> 所以你看到任何具体路径的例子，先**确认它现在还在不在**（`Test-Path`），别照抄。
 
 **怎么认出它**：目录属性会显示 `<JUNCTION>`；命令行里可以看目标：
 ```powershell
-Get-Item <工作区>\dsh-runtime | Select-Object LinkType, Target
+Get-Item <工作区>\ComfyUI | Select-Object LinkType, Target
 ```
 
 **⚠️ 唯一必须记住的风险**：**删除 junction 只能用 `rmdir`（或 `.NET Directory.Delete`）**，**绝不能用 `del /s`** —— 后者会**顺着传送门走进去，把真身里的文件删掉**。
@@ -478,12 +481,16 @@ Get-FileHash -Algorithm SHA256 '<工作区>\20-docs\docs\README.md'
 
 **⑤ 启动 DSH（你日常用的那条）**
 ```
-node <工作区>\dsh-runtime\node_modules\@deepseek-ai\dsh\lib\bin.js web --port 3080
-└┬─┘ └──────────────────── 路径：DSH 的入口脚本 ────────────────────┘ └┬─┘ └───┬───┘
-node                                                                 子命令  参数：端口
+<工作区>\scripts\dsh.cmd start
+└────────┬────────┘ └─┬─┘
+      脚本路径        子命令
 ```
-读法：**用 node 跑 DSH 的入口脚本，进入 `web` 模式，监听 3080 端口**。
-（实际使用中你双击 `dsh.cmd start/stop/restart` 就行，不必手敲这条——这里只是让你看懂它。）
+读法：**跑 `<工作区>\scripts\dsh.cmd` 这个脚本，子命令是 `start` ⇒ 启动 DSH**。
+
+> **⚠️ 这里原来是一条更长的命令**（早期用 npm 运行时启动 web 服务）：
+> `node <工作区>\dsh-runtime\node_modules\@deepseek-ai\dsh\lib\bin.js web --port 3080`
+> 它演示的**四段结构**（`node` 程序 → `bin.js` 入口脚本 → `web` 子命令 → `--port 3080` 参数）**仍然是最好的教材**，所以留在这里；
+> 但**那条命令本身已经作废** —— 那条运行线已退役、目录也已搬走。**看懂结构，别照抄**。
 
 ### 遇到陌生命令时的三步自问
 
