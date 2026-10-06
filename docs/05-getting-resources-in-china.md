@@ -88,7 +88,7 @@ https://gh-proxy.com/https://github.com/<owner>/<repo>/releases/download/<tag>/<
 ```bash
 dsh plugin --profile <档案> add <包名>[@版本]   # ① 装（写档案的 package.json）
 dsh plugin --profile <档案> version-exemptions  # ② 看 peer 告警 / 现有豁免
-<工作区>/scripts/dsh.cmd restart                # ③ 重启（重建插件注册表）
+（重启 DSH：桌面端退出后重新打开）      # ③ 重启（重建插件注册表）
 node <工作区>/50-tools/dsh-plugin-doctor.mjs    # ④ 体检（零 pending / 零 skipping 才算成）
 ```
 

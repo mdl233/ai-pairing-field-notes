@@ -5,7 +5,7 @@
 > **读者**：在 **Windows + 中文环境**下用命令行、脚本与 AI 工具链的人。
 > **体量**：**93 条坑** ／ 速查表 **91 行** ／ 十四章 —— 批处理（`A`）· Shell 与路径（`B`）· 编码（`C`）· 浏览器自动化（`D`）· 数据与脚本安全（`E`）· DSH / mnemon 口径（`G`）· 插件开发与上线（`H`）· 会话数据与恢复（`I`）· VM / 派工协同（`J`）· 探针与守卫（`K`）· 生图与本地模型（`L`）· **AI 做 UI / 前端（`M`）** · 待验证（`F`）· 维护规则。
 > **口径**：文中路径统一以占位符表示（`<工作区>` / `%USERPROFILE%` / `<主机名>` / `<VMUSER>` 等），**替换成你自己的即可**；条目末尾"出处"里的 `NN 号 §x.y`、「同仓另篇」、`_归档/…`、`事故/…`、`审计/…` 等，**都是作者本机内部笔记的编号与路径** —— 保留它们是为了"每条坑可追溯来源"，**你按内容理解即可，不必去找那些文件**。
-> **建立**：2026-09-21 ｜ **本次整理**：**2026-10-06**（新增 `G5` / `K19` / `M1`–`M6` 共 **8 条**，新开 `M` 章；订正 `I12` 长会话判据、`K17` 版本口径，以及 `H8` 档案路径 / `J4`·`J8` 预设名 / `K5` 端口口径等过时项）
+> **建立**：2026-09-21 ｜ **本次整理**：**2026-10-06**（新增 `G5` / `K19` / `M1`–`M6` 共 **8 条**、新开 `M` 章；并订正一批**随宿主换代而过时**的口径：`I12` 长会话判据 · `K17` 版本口径 · `H8` 档案路径 · `J4`/`J8` 预设名，以及 **`dsh.cmd` 启停子命令已退役** / **主机 `settings.yaml` 已被收编** 两项的连带修正）
 
 ---
 
@@ -75,14 +75,14 @@
 | `stop` 说"端口已空闲"，`start` 起了第二个实例 | 探测失败被当成"确认为否" ⇒ `null` 与 `false` 要分开 | K2 |
 | 守卫自测全绿，线上仍被绕过 | 守卫要双向断言；"保命组件"必须真跑一次 | K3 |
 | 端口明明在听，脚本说没监听 | 判据只认字面量 IP ⇒ 要覆盖 IPv6 / 通配绑定 | K4 |
-| `dsh.cmd stop` 后脚本仍报"服务在跑" | 残留 ts-proxy 也监听 `:3080` ⇒ 放宽匹配前先枚举监听者 | K5 |
+| 停服后脚本仍报"服务在跑"（历史坑 · 旧 `dsh.cmd`） | 残留**旁路监听者**（ts-proxy）也占着端口 ⇒ **放宽匹配前先枚举监听者** | K5 |
 | 文件工具读 `<工作区>/...` 说文件不存在 | 文件工具传 `<工作区>/...`；`<工作区>` 只在 bash/pwsh 里对 | K6 |
 | 中文变 `???` / U+FFFD / 整段字符消失 | 编码用错即永久损毁 ⇒ 按文件类型选编码 + 走 pwsh | K7 |
 | `JSON.parse` 莫名失败 / `.ps1` 中文语法错乱 | JSON 禁 BOM（查前 3 字节）；`.ps1` 要 BOM 或走 node | K8 |
 | 脚本报"已改完"，实际只改了一半 | 改文件按行号，不靠模式匹配；改完跑真测试 | K9 |
 | 扫描报"无异常 ✓"，其实一个文件都没扫到 | `-Include` 必须配 `-Recurse`，否则静默返回空 | K10 |
 | `set /p` 读到的值是文件名 / `timeout /t` 报参数错 | cmd 参数类坑 ⇒ 换 pwsh `Get-Content -Raw` / 绝对路径 | K11 |
-| `dsh.cmd stop` 之后辅助件又起来了 | `--ensure` 在命令分派前执行 ⇒ 先 stop 再停辅助件 | K12 |
+| 停服之后辅助件又起来了（历史坑 · 旧 `dsh.cmd`） | `--ensure` 在命令分派前执行 ⇒ 先 stop 再停辅助件 | K12 |
 | 脚本打 usage，调用方却报"成功" | spawn 里只把第一个 token 拼路径；`ok:true` ≠ 执行了 | K13 |
 | 双击启动器报 `'uncher' 不是内部或外部命令` | 批处理被 LF 化了 ⇒ 必须 CRLF，写完校验换行符 | K14 |
 | `schtasks` 报拒绝访问 | 沙箱下 Task Scheduler 不可用 ⇒ 换常驻定时器 / cron | K15 |
@@ -237,7 +237,7 @@
 ### G1 `mnemon_status` **不返回**上限字段
 
 - 它只吐 `healthy / version / commandFound / writeEnabled / memorySpaces / providers / aggregate`；拿不到 `memoryLimitBytes / userLimitBytes`（其中的 `version` 还是**原生 CLI** 版本，不是插件版本）。
-- **验收上限的三件套**：① `settings.yaml` 的 `mnemon.runtimeMemory` 段；② **本轮注入头的分母** —— `Contents of MEMORY.md (… UTF-8 bytes: 13423/32768)`，那是**正在跑的进程**读到的生效值，**最硬**；③ 源码行号。
+- **验收上限的三件套**：① 配置里的 `mnemon.runtimeMemory` 段（★ **2026-10-06 更正落点**：主机侧已从此前的 `~/.dsh/settings.yaml` **收编进 `~/.dsh/profiles/desktop/cordis.patch.yml`**，旧文件已不存在；⚠️ **VM 侧仍是 `settings.yaml`**）；② **本轮注入头的分母** —— `Contents of MEMORY.md (… UTF-8 bytes: 13423/32768)`，那是**正在跑的进程**读到的生效值，**最硬**；③ 源码行号。
 - ⚠️ 对拍注意：注入头里的 `used` 比磁盘文件**小 1 字节**（不含文件尾 `\n`），别误判成"少了一条"。
 
 ### G2 `[dsh-mnemon] idle review failed: memory subagent completed without recording its result`
@@ -331,7 +331,7 @@
 
 - **症状**：预设类插件装了，但新会话的预设选择器里看不到；或删/装插件后 GUI 白屏。
 - **根因**：① profile 的 node_modules 靠 **junction** 指到工作区源码；② DSH **只扫 `.agent-presets` 的一级子目录**，`agent.cordis.yml` 必须直接位于预设目录内（多套一层就扫不到）；③ 插件注册表在**进程内存**里，删/装后不重启 → 旧进程仍引用已删除的 client.js ⇒ 前端请求 404 ⇒ 白屏（**服务进程本身健康，只有页面挂**）。
-- **正解**：`mklink /J C:\Users\<USER>\.dsh\profiles\desktop\node_modules\@dsh-external\<包名> <工作区>\<插件名>`；预设**平铺**到 `~/.dsh/.agent-presets\<预设名>\`；装完 `<工作区>\scripts\dsh.cmd restart`（VM 侧 `systemctl --user restart dsh-web`）；卸载删 junction 用 `rmdir`（**别用 `del /s`**，见 F5）。★ **2026-10-06 更新**：档案路径由 `profiles\web` 改为 **`profiles\desktop`**（web 线已于 2026-10-02 退役并清除）。
+- **正解**：`mklink /J C:\Users\<USER>\.dsh\profiles\desktop\node_modules\@dsh-external\<包名> <工作区>\<插件名>`；预设**平铺**到 `~/.dsh/.agent-presets\<预设名>\`；装完**重启 DSH**（★ 2026-10-06 更正：桌面端**退出后重新打开 `DeepSeek Harness.exe`** —— 旧 `dsh.cmd` 的启停子命令已随 web 线退役；VM 侧 `systemctl --user restart dsh-web`）；卸载删 junction 用 `rmdir`（**别用 `del /s`**，见 F5）。★ **2026-10-06 更新**：档案路径由 `profiles\web` 改为 **`profiles\desktop`**（web 线已于 2026-10-02 退役并清除）。
 - **判别**：装了没生效 ⇒ 先看目录层级 + junction 指向，再问"重启了没"。
 - **出处**：05 号 §2（L16–34）、§5（L54–63）、§6（L65–70）、01 号 §4.6（L205–231）。
 
@@ -468,8 +468,8 @@
 
 - **症状**：在线修完会话文件，症状**立刻复发**（或修复根本没落盘）。
 - **根因**：活动会话文件由 DSH 进程持有并持续写入，**不能在线改写**。
-- **正解**：修复脚本执行前先 `<工作区>\scripts\dsh.cmd stop`（**由你手动执行**——agent 杀宿主等于杀死自己的执行环境）；VM 侧用 `systemctl --user restart dsh-web`；修完再起。
-- **判别**：修完立即复发 ⇒ 先确认服务是否还在跑（`dsh.cmd status` / 端口）。
+- **正解**：修复脚本执行前先**停掉 DSH**（现役桌面端：**退出 `DeepSeek Harness.exe`**；★ 2026-10-06 更正：旧 `dsh.cmd stop` 已随 web 线退役 —— **由你手动执行**，agent 杀宿主等于杀死自己的执行环境）；VM 侧用 `systemctl --user restart dsh-web`；修完再起。
+- **判别**：修完立即复发 ⇒ 先确认服务是否还在跑（**看端口是否在监听** / 桌面端进程是否还在）。
 - **出处**：事故/25-会话交接-新会话开篇必读.md（L89）、17 号 §5.1（L109）、§三 铁律（L36）。
 
 ### I14 升级脚本的幂等与账本：重走步骤不会重做，重跑初始化会清零
@@ -676,7 +676,7 @@
 ### K12 `dsh.cmd stop` 之后辅助件又起来了（`--ensure` 在前）
 
 - **症状**：停完 dsh，发现生命周期记录器 / 看门狗**又跑起来了**。
-- **根因**：`dsh.cmd` 在**任何命令分派之前**执行 `dsh-lifecycle-watch.mjs --ensure` 与 `host-watchdog.mjs --ensure`（幂等 + 单实例锁）⇒ 对**每条**命令都生效，"stop"也不例外。
+- **根因**：`dsh.cmd` 在**任何命令分派之前**执行 `dsh-lifecycle-watch.mjs --ensure` 与 `host-watchdog.mjs --ensure`（幂等 + 单实例锁）⇒ 对**每条**命令都生效，"stop"也不例外。★ **2026-10-06 注**：该脚本的**启停子命令已于 2026-10-02 随 web 线退役**（`dsh.cmd` 现只剩一个"请直接开 exe"的提示壳）⇒ **本条作为历史机制记录保留**；真正要记的是那条通用教训：**"停服"脚本可能在分派前先做别的事，别假设它只做你以为的那一件**。
 - **正解**：**先 stop，再停辅助件**（或按设计接受"辅助件随 dsh 启动带起"）。
 - **判别**：stop 后 `--status` 里辅助件仍在 ⇒ 就是这个机制。
 - **出处**：01 号 §15.3（L783）、§12（L650）。
