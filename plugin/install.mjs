@@ -73,6 +73,14 @@ const bak = pkgFile + '.bak-pairing-notes';
 fs.copyFileSync(pkgFile, bak);
 
 copyDir(HERE, target);
+// ★ 连带把仓库的 docs/ 拷进包 ⇒ 工具回报的"原文"会是**本地路径**（国内网络点不开 GitHub，模型却能直接读本地文件）
+const docsSrc = path.join(HERE, '..', 'docs');
+if (fs.existsSync(docsSrc)) {
+  copyDir(docsSrc, path.join(target, 'docs'));
+  console.log('④ 附带 docs : 已拷入 ' + path.join(target, 'docs'));
+} else {
+  console.log('④ 附带 docs : ⚠ 没找到 ' + docsSrc + '（工具会回落 GitHub 链接）');
+}
 pkg.dependencies[NAME] = depSpec;
 if (!alreadyBundle) pkg.dsh.profile.bundles.push(NAME);
 fs.writeFileSync(pkgFile, JSON.stringify(pkg, null, 2) + '\n', 'utf8');

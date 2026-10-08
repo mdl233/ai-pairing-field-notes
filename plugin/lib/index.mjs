@@ -5,11 +5,28 @@
  *   任何 agent 都能 `node core/cli.mjs search "..."` 用它，不必装插件。
  *   本文件只负责把 core 的能力**注册成 DSH 的两个工具**。
  */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineTool } from '@deepseek-ai/dsh-tools';
 import { search } from '../core/search.mjs';
 import { listWorkflows, getWorkflow } from '../core/workflows.mjs';
 
 const inject = ['tools'];
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * 原文在哪 —— ★ 优先**本地 docs 副本**（`install.mjs` 会把仓库的 docs/ 一起拷进包）。
+ * 为什么：国内网络点不开 GitHub；而本地路径**模型能直接去读**，人也能直接打开。
+ * 没有本地副本时才回落 GitHub 链接；也可用环境变量 PAIRING_NOTES_DOCS 指定别处（多份笔记 / 自定义部署）。
+ */
+function docsBase() {
+  const custom = process.env.PAIRING_NOTES_DOCS;
+  if (custom && fs.existsSync(custom)) return path.resolve(custom).replace(/\\/g, '/');
+  const local = path.join(HERE, '..', 'docs');
+  if (fs.existsSync(local)) return path.resolve(local).replace(/\\/g, '/');
+  return 'https://github.com/mdl233/ai-pairing-field-notes/blob/main/docs';
+}
 
 function apply(ctx) {
   // ① 检索手册
@@ -50,7 +67,7 @@ function apply(ctx) {
         type: 'text',
         text: `在《结对实战笔记》里命中 ${v.total} 条（查询：${v.query}）：\n\n` +
           v.hits.map((h, i) => `${i + 1}. 【${h.no} ${h.book}】${h.title}\n   ↳ ${h.where}\n   ↳ docs/${h.file}`).join('\n\n') +
-          `\n\n原文：https://github.com/mdl233/ai-pairing-field-notes/blob/main/docs/`,
+          `\n\n原文：${docsBase()}/`,
       }],
     },
     async execute(args) {
