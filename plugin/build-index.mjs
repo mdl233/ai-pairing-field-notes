@@ -18,7 +18,7 @@ import path from 'node:path';
 const args = process.argv.slice(2);
 const getArg = (n, d) => { const i = args.indexOf(n); return i >= 0 ? args[i + 1] : d; };
 const DOCS = path.resolve(getArg('--docs', path.join(import.meta.dirname, '..', 'docs')));
-const OUT = path.resolve(getArg('--out', path.join(import.meta.dirname, 'lib', 'index-data.json')));
+const OUT = path.resolve(getArg('--out', path.join(import.meta.dirname, 'core', 'index-data.json')));
 
 const META = {
   '01-windows-chinese-dev-pitfalls.md': { no: '01', title: '避坑手册', kind: '坑' },

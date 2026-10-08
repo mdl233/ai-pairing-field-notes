@@ -10,9 +10,9 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
-import { rank } from './lib/rank.mjs';
+import { rank } from './core/search.mjs';
 
-const DATA = path.join(import.meta.dirname, 'lib', 'index-data.json');
+const DATA = path.join(import.meta.dirname, 'core', 'index-data.json');
 if (!fs.existsSync(DATA)) { console.error('✗ 先跑 build-index.mjs 生成 lib/index-data.json'); process.exit(1); }
 const data = JSON.parse(fs.readFileSync(DATA, 'utf8'));
 
