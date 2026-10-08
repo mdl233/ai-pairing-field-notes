@@ -1,0 +1,9 @@
+# pairing-notes bundle patch —— 把「结对笔记检索」工具插进 profile 名册
+# （由 dsh.bundle.patch 清单字段声明，作为 profile bundle 的一层加载）
+#
+# 插件登记一个面向模型的工具 `search_pairing_notes`：
+#   在《AI 结对实战笔记》六篇里按关键词检索条目，返回「篇号 + 标题 + 摘要 + 出处」，
+#   让 AI 能直接引用这套笔记回答用户（例：cmd 中文乱码、报编码错但文件是好的、AI 老跑偏）。
+- insert:
+    - id: pairing-notes
+      name: '@mdl233/pairing-notes'

@@ -1,0 +1,19 @@
+{
+  "name": "@mdl233/pairing-notes",
+  "version": "0.1.0",
+  "description": "把《AI 结对实战笔记》六篇做成 DSH 工具：装完之后，AI 能直接检索「93 条坑 / 入门 / 纪律 / 界面 / 资源 / 留存做法」并回答你。",
+  "type": "module",
+  "engines": { "node": "^22.19.0 || >=24.0.0" },
+  "main": "lib/index.mjs",
+  "exports": {
+    ".": "./lib/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": { "patch": "./cordis.patch.yml" }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1"
+  },
+  "license": "MIT"
+}
