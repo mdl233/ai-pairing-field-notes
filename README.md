@@ -34,6 +34,9 @@
 
 ## 这里有什么
 
+> 🐣 **完全的新手？** 不用管下面这一堆 —— **直接从 [`docs/02` 从零开始](docs/02-getting-started-with-ai-pairing.md) 顺序读**（21 节，零基础可读，配通俗比方）。遇到问题再回头查索引。
+> 🌐 **不想读长文？** 网页版能直接搜：**<https://mdl233.github.io/ai-pairing-field-notes/>**
+
 > 🔍 **不知道从哪看起？** → 先看 **[`docs/00-INDEX.md`](docs/00-INDEX.md)**（按"你遇到什么"找的三张表：症状 / 场景 / 关键词）。
 > 📖 文中出现看不懂的写法（`<工作区>`、`NN 号 §x.y`、`_归档/`）→ 查 **[`docs/00-GLOSSARY.md`](docs/00-GLOSSARY.md)**。
 

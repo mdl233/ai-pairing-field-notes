@@ -6,7 +6,7 @@
 
 - **六篇正文**
 - [01 避坑手册（93 条）](docs/01-windows-chinese-dev-pitfalls.md)
-- [02 从零开始（21 节）](docs/02-getting-started-with-ai-pairing.md)
+- [🐣 02 从零开始（零基础看这个）](docs/02-getting-started-with-ai-pairing.md)
 - [03 跟 AI 协作的纪律](docs/03-discipline-of-pairing-with-ai.md)
 - [04 让 AI 做界面与美术](docs/04-ai-ui-and-art-pipeline.md)
 - [05 在国内网络里搞到资源](docs/05-getting-resources-in-china.md)
