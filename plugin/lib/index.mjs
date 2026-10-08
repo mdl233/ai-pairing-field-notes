@@ -39,7 +39,10 @@ function apply(ctx) {
       '返回命中的条目（篇号 + 标题 + 摘要 + 出处），据此回答并给出来源链接。',
     parameters: {
       query: { type: 'string', required: true, description: '用户的问题或关键词，例："cmd 中文乱码"、"AI 老跑偏"' },
-      limit: { type: 'integer', required: false, description: '返回几条，默认 8，最多 12' },
+      // ⚠️ 千万不要写 `required: false` —— 0.1.x 的 dsh-tools 会报
+      //    "parameters.limit.required must be true when present"（UNSUPPORTED_SCHEMA）
+      //    并**导致宿主启动失败**（VM 实测抓到，2026-10-08）。可选参数＝直接不写 required。
+      limit: { type: 'integer', description: '返回几条，默认 8，最多 12' },
     },
     output: {
       schema: {
@@ -89,7 +92,7 @@ function apply(ctx) {
       '不传 name 则列出全部。适用场景：用户说"我要发布/交付了""接手了个陌生项目""评审改不完了"' +
       '"要让 AI 做界面/出图""资源下不动""文档库乱了" —— 这些都有现成的工作流可照走。',
     parameters: {
-      name: { type: 'string', required: false, description: '工作流名（支持模糊，如"发布"）；不传则列出全部' },
+      name: { type: 'string', description: '工作流名（支持模糊，如"发布"）；不传则列出全部' },
     },
     output: {
       schema: {
