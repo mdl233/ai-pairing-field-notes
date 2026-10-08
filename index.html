@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>AI 结对实战笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="跟 AI 结对干活的实战笔记：Windows 中文环境 93 条真实坑 · 零基础入门 · 协作纪律 · 界面与美术 · 资源获取 · 把工作留下来">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/docsify/4.13.1/themes/vue.css">
+  <style>
+    :root { --theme-color: #2F45C5; }
+    .sidebar-toggle { background: #2F45C5; }
+    .markdown-section code { background: #f3f5ff; }
+    .markdown-section table { display: table; width: 100%; }
+    .app-name-link { letter-spacing: .06em; }
+  </style>
+</head>
+<body>
+  <div id="app">正在加载…（若长时间无反应，请直接访问 <a href="docs/00-INDEX.md">docs/00-INDEX.md</a>）</div>
+
+  <script>
+    window.$docsify = {
+      name: '结对实记',
+      repo: 'mdl233/ai-pairing-field-notes',
+      homepage: 'README.md',
+      loadSidebar: true,
+      subMaxLevel: 3,
+      auto2top: true,
+      maxLevel: 4,
+      coverpage: false,
+      notFoundPage: true,
+      copyCode: { buttonText: '复制', errorText: '复制失败', successText: '已复制' },
+      search: {
+        placeholder: '搜索（支持中文子串）…',
+        noData: '没有找到相关内容',
+        depth: 3,
+        maxAge: 86400000
+      },
+      pagination: { previousText: '上一篇', nextText: '下一篇', crossChapter: true },
+      plugins: [
+        function (hook) {
+          // 站内链接指向别的 md 时，自动补上 docsify 路由
+          hook.beforeEach(function (html) {
+            return html.replace(/\]\((?!http|#|\/)([^)]+?)\.md(#[^)]*)?\)/g, '](#/$1$2)');
+          });
+        }
+      ]
+    }
+  </script>
+
+  <script src="https://cdn.staticfile.org/docsify/4.13.1/docsify.min.js"></script>
+  <script src="https://cdn.staticfile.org/docsify/4.13.1/plugins/search.min.js"></script>
+  <script src="https://cdn.staticfile.org/docsify/4.13.1/plugins/pagination.min.js"></script>
+  <script src="https://cdn.staticfile.org/docsify/4.13.1/plugins/copy-code.min.js"></script>
+  <script src="https://cdn.staticfile.org/docsify/4.13.1/plugins/zoom-image.min.js"></script>
+</body>
+</html>
