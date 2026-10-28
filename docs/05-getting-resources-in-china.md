@@ -33,10 +33,10 @@
 1. 直连。用于国内源、内网、本机服务。
 
 2. 国内镜像站点：
-   - **pypi 清华源**：装 Python 包。`pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple <包>`。torch、numpy 这类大包用它最省事。
-   - **npm npmmirror**：装 Node 包。`npm config set registry https://registry.npmmirror.com`（pnpm 同样认这个配置）。
-   - **hf-mirror.com**：取 HuggingFace 模型权重。设 `HF_ENDPOINT=https://hf-mirror.com` 后按原命令下载；单文件超过 1 GB 会截断，要分段下（见 `L4`）。
-   - **ghproxy.net**：取 GitHub 的单个文件（raw / release）。在原地址前加前缀：`https://ghproxy.net/https://raw.githubusercontent.com/...`。**整仓 clone 不适用**（clone 见 §2）。
+   - pypi 清华源：装 Python 包。`pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple <包>`。torch、numpy 这类大包用它最省事。
+   - npm npmmirror：装 Node 包。`npm config set registry https://registry.npmmirror.com`（pnpm 同样认这个配置）。
+   - hf-mirror.com：取 HuggingFace 模型权重。设 `HF_ENDPOINT=https://hf-mirror.com` 后按原命令下载；单文件超过 1 GB 会截断，要分段下（见 `L4`）。
+   - ghproxy.net：取 GitHub 的单个文件（raw / release）。在原地址前加前缀：`https://ghproxy.net/https://raw.githubusercontent.com/...`。整仓 clone 不适用（clone 见 §2）。
 
 3. 国外节点。前两种都不通时使用（被墙、reset、超时）。可以用 clash。节点按流量计费。
 
@@ -204,4 +204,4 @@ AI会在不断尝试中浪费很多时间，遇到长时间无进度的情况要
 
 ---
 
-*作者：MDL233 ｜ 许可：CC BY 4.0 ｜ 本文所有"可用性/速度"结论均为**特定时间、特定机器**的实测，请以你自己的环境为准。*
+*作者：MDL233 ｜ 许可：CC BY 4.0 ｜ 本文所有"可用性/速度"结论均为特定时间、特定机器的实测，请以你自己的环境为准。*
