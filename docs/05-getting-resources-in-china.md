@@ -29,17 +29,19 @@
 
 ---
 
-## 1.5 下载分三档：**直连 → 国内镜像 → 节点**（节点按流量收费，别乱用）
+## 1.5 三种常规下载途径
 
-拿到一个国外资源，**按这个顺序试，能便宜的就别用贵的**：
+1. 直连。用于国内源、内网、本机服务。
 
-| 顺序 | 手段 | 什么时候用 |
-|---|---|---|
-| ① **直连** | 直接下 | 国内源、公司内网、本机服务（`127.0.0.1` / 内网段） |
-| ② **国内镜像** | pypi → 清华源（`--index-url https://pypi.tuna.tsinghua.edu.cn/simple`）· npm → npmmirror · 模型 → `hf-mirror.com` · GitHub 文件 → `ghproxy.net` 前缀 | 有镜像的**优先走镜像** |
-| ③ **节点** | 走自己的代理节点 | **只有 ①② 都拿不到**（被墙 / reset / 超时）才用 |
+2. 国内镜像站点：
+   - **pypi 清华源**：装 Python 包。`pip install --index-url https://pypi.tuna.tsinghua.edu.cn/simple <包>`。torch、numpy 这类大包用它最省事。
+   - **npm npmmirror**：装 Node 包。`npm config set registry https://registry.npmmirror.com`（pnpm 同样认这个配置）。
+   - **hf-mirror.com**：取 HuggingFace 模型权重。设 `HF_ENDPOINT=https://hf-mirror.com` 后按原命令下载；单文件超过 1 GB 会截断，要分段下（见 `L4`）。
+   - **ghproxy.net**：取 GitHub 的单个文件（raw / release）。在原地址前加前缀：`https://ghproxy.net/https://raw.githubusercontent.com/...`。**整仓 clone 不适用**（clone 见 §2）。
 
-★ 一句话：**节点是花钱的**（按流量计费），所以它是「兜底」，不是「默认」。我自己的下载脚本就是按这个顺序自动判断：先直连探一下，通了直连，不通才切节点 —— 判断逻辑是 `Range: 0-0` 探一次，不整份下载、也不白烧节点。
+3. 国外节点。前两种都不通时使用（被墙、reset、超时）。可以用 clash。节点按流量计费。
+
+判断方法：先发一次 `Range: 0-0` 探通，根据返回结果选择。
 
 ## 2 GitHub 系：两个开关 + 一条命令
 
