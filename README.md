@@ -27,6 +27,7 @@
 
 ## 这里有什么
 
+> 🐞 **照做后和文中对不上？** 直接开一条 [Issue](https://github.com/mdl233/ai-pairing-field-notes/issues/new/choose) —— 这个仓库每条都带日期，**过期就是真问题**，不是你的错。
 > 🐣 **完全的新手？** 不用管下面这一堆 —— **直接从 [`docs/02` 从零开始](docs/02-getting-started-with-ai-pairing.md) 顺序读**（21 节，零基础可读，配通俗比方）。遇到问题再回头查索引。
 
 > 🔍 **不知道从哪看起？** → 先看 **[`docs/00-INDEX.md`](docs/00-INDEX.md)**（按"你遇到什么"找的三张表：症状 / 场景 / 关键词）。

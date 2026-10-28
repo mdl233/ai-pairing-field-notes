@@ -1,0 +1,26 @@
+name: 内容纠错 / 过期
+description: 文档里的事实错了、版本对不上、链接失效
+title: "[纠错] "
+labels: ["documentation"]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: 位置
+      description: 哪一篇、哪一节
+      placeholder: docs/05 §1.5
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: 哪里不对
+      description: 原文怎么写的 + 你实测是什么结果
+    validations:
+      required: true
+  - type: input
+    id: date
+    attributes:
+      label: 你验证的日期
+      description: 这个仓库按"时效"管理内容，带日期我能改得更准
+      placeholder: 2026-10-28

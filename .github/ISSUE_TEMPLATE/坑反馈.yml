@@ -1,0 +1,36 @@
+name: 踩到同样的坑 / 补充
+description: 你按这里的条目试了，结果不一样；或者你踩到了新坑
+title: "[坑] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        不用写得多正式 —— 说清「你在哪一步、看到什么、和文中哪里不一样」就够了。
+        这个仓库的每条都带日期和出处，**对不上很可能是环境变了**，不是你的问题。
+  - type: input
+    id: entry
+    attributes:
+      label: 相关条目
+      description: 哪一条（例如 01 的 K21、05 的 §1.5）
+      placeholder: 01 · K21
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 你看到的现象
+      description: 报错原文 / 和文中对不上的地方
+    validations:
+      required: true
+  - type: textarea
+    id: env
+    attributes:
+      label: 环境（能贴就贴）
+      description: 系统版本、用的工具版本、有没有挂代理 —— 有这三样我就能判断是不是版本漂移
+      placeholder: Windows 11 25H2 · dsh 0.2.1 · 无代理
+  - type: textarea
+    id: tried
+    attributes:
+      label: 你已经试过的
+      description: 试过什么、结果如何（省得来回问）
