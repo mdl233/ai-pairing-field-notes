@@ -2,8 +2,8 @@
 /**
  * install.mjs —— 把本插件装进某个 DSH profile
  *
- * ★ 它**只做三件事**：拷包 → 写 dependencies → 写 dsh.profile.bundles。
- * ★ 它**绝不重启宿主** —— 那一步必须由**人**来做（AI 不该、也不能替人重启）。
+ * 它**只做三件事**：拷包 → 写 dependencies → 写 dsh.profile.bundles。
+ * 它**绝不重启宿主** —— 那一步必须由**人**来做（AI 不该、也不能替人重启）。
  *
  * 用法：
  *   node install.mjs                      # 自动找 profile（优先 desktop）
@@ -73,7 +73,7 @@ const bak = pkgFile + '.bak-pairing-notes';
 fs.copyFileSync(pkgFile, bak);
 
 copyDir(HERE, target);
-// ★ 连带把仓库的 docs/ 拷进包 ⇒ 工具回报的"原文"会是**本地路径**（国内网络点不开 GitHub，模型却能直接读本地文件）
+// 连带把仓库的 docs/ 拷进包，工具回报的"原文"会是**本地路径**（国内网络点不开 GitHub，模型却能直接读本地文件）
 const docsSrc = path.join(HERE, '..', 'docs');
 if (fs.existsSync(docsSrc)) {
   copyDir(docsSrc, path.join(target, 'docs'));
@@ -90,6 +90,6 @@ const check = JSON.parse(fs.readFileSync(pkgFile, 'utf8'));
 const ok = check.dependencies[NAME] && check.dsh.profile.bundles.includes(NAME);
 console.log(`\n${ok ? '✅' : '⚠️'} 已写入（原文件备份 → ${path.basename(bak)}）`);
 console.log('');
-console.log('★ 还差最后一步 —— **请你自己重启 DSH**（这一步不作自动化）：');
+console.log('还差最后一步 —— **请你自己重启 DSH**（这一步不作自动化）：');
 console.log('   完全退出 DeepSeek Harness，再打开。');
 console.log('   重启后问一句：「用 search_pairing_notes 查一下 cmd 中文乱码」验证。');

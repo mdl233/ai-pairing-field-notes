@@ -17,7 +17,7 @@
  *
  * ⚠️ 一条**状态判断的局限**（很重要）：
  *   `status` 只能证明"服务在不在响应"。**进程已僵死但仍占着显存**时，它可能报"没在跑"。
- *   ⇒ 跑图前请**交叉验证**一次：
+ *  ，跑图前请**交叉验证**一次：
  *      nvidia-smi --query-compute-apps=pid,process_name,used_memory --format=csv
  */
 import { spawn, execSync } from 'node:child_process';

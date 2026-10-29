@@ -54,7 +54,7 @@ for (const [file, meta] of Object.entries(META)) {
     items.push({ file, no: meta.no, book: meta.title, kind: '坑', title: symptom, where: target, text: `${symptom} → ${target}` });
   }
 
-  // ② 章节（## 级）与小节（### 级）—— ★ 小节必须收：03~06 的内容全在 ### 里
+  // ② 章节（## 级）与小节（### 级）—— 小节必须收：03~06 的内容全在 ### 里
   lines.forEach((line, i) => {
     const m = line.match(/^(#{2,3})\s+(.+)$/);
     if (!m) return;
@@ -62,7 +62,7 @@ for (const [file, meta] of Object.entries(META)) {
     if (/速查表|维护规则|一页速查|^目录$/.test(title)) return;
     const kind = m[1] === '###' ? '节' : '章';
     // 取该章后第一段非空、非标题的文字作摘要
-    // ★ 摘要取该小节后 500 字（去掉表格/引用/标题）—— 只取首段会让"正文里的说法"检索不到
+    // 摘要取该小节后 500 字（去掉表格/引用/标题）—— 只取首段会让"正文里的说法"检索不到
     const parts = [];
     for (let j = i + 1; j < Math.min(i + 60, lines.length) && parts.join('').length < 500; j++) {
       const t = lines[j].trim();

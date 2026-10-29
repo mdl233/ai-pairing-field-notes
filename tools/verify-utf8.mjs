@@ -6,7 +6,7 @@
  *   `delivery_check` 的 encoding-utf8 检查按**固定 64KB 切片**解码；若切点落在多字节汉字内部，
  *   会报 `The encoded data was not valid for encoding utf-8` —— 而文件其实完全合法。
  *   2026-09-21 实测复现两次（切点分别为 `0x8a` 续字节与 `0xe6` 首字节；同期全文严格解码 OK）。
- *   ⇒ 大文件（>64KB 且含中文）遇到该 FAIL 时，**先跑本脚本反证**，不要改文件去凑字节边界。
+ *  ，大文件（>64KB 且含中文）遇到该 FAIL 时，**先跑本脚本反证**，不要改文件去凑字节边界。
  *
  * 用法：
  *   node verify-utf8.mjs <file...> [--json]

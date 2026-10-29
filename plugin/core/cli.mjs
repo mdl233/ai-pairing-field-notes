@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * cli.mjs —— ★ 通用入口：**任何 agent / 任何平台**都能用它
+ * cli.mjs —— 通用入口：**任何 agent / 任何平台**都能用它
  *
  * 设计前提：**不绑定模型、不绑定 harness** ——
  *   只要那台机器有 node，就能 `node core/cli.mjs search "..."`，

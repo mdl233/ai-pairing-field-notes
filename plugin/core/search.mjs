@@ -24,7 +24,7 @@ export function loadIndex(file = DEFAULT_INDEX) {
 }
 
 /**
- * 无检索价值的高频词 —— ★ 实测：查"完全不存在zzz"竟能搜出 8 条，
+ * 无检索价值的高频词 —— 实测：查"完全不存在zzz"竟能搜出 8 条，
  * 因为 2-gram 里的"存在/完全"命中了正文。
  * ⚠️ 只收**真正没信息量**的词；"文件 / 路径 / 编码 / 端口"这类**技术词绝不能收**（它们是真的检索意图）。
  */
@@ -72,7 +72,7 @@ export function rank(items, query, limit = 8) {
   if (!ts.length) return [];
   return items
     .map((it) => ({ it, s: score(it, ts, query) }))
-    .filter((x) => x.s >= 2)   // ★ 阈值：滤掉"只靠一个 2-gram 正文命中"的噪声（那种多半无关）
+    .filter((x) => x.s >= 2)   // 阈值：滤掉"只靠一个 2-gram 正文命中"的噪声（那种多半无关）
     .sort((a, b) => b.s - a.s)
     .slice(0, Math.min(Math.max(limit, 1), 12))
     .map((x) => x.it);
