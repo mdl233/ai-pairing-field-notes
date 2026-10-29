@@ -1,7 +1,7 @@
 {
   "name": "@mdl233/pairing-notes",
   "version": "0.1.0",
-  "description": "把《AI 结对实战笔记》六篇做成 DSH 工具：装完之后，AI 能直接检索「93 条坑 / 入门 / 纪律 / 界面 / 资源 / 留存做法」并回答你。",
+  "description": "把结对笔记六篇做成 DSH 工具：装完后 AI 能检索 101 条坑、入门、纪律、界面、资源、留存做法。",
   "type": "module",
   "engines": { "node": "^22.19.0 || >=24.0.0" },
   "main": "lib/index.mjs",

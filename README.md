@@ -25,7 +25,7 @@
 | [02 从零开始](docs/02-getting-started-with-ai-pairing.md) | 21 节。文件与路径、进程与端口、编码、命令行、怎么跟 AI 协作 | 编程零基础 |
 | [03 协作纪律](docs/03-discipline-of-pairing-with-ai.md) | 委托三件套、证据四形态、假成功与假失败、反馈三条、止损线 | 已经把 AI 当协作者的人 |
 | [04 界面与美术](docs/04-ai-ui-and-art-pipeline.md) | 界面用代码做别手绘、提示词要写设计风格、本地出图、出图后自查 | 用 AI 做 UI、网页、立绘的人 |
-| [05 资源获取](docs/05-getting-resources-in-china.md) | 下载三档、通道实测、大文件截断、下不动交给人、插件安装 | 被下不下来卡住过的人 |
+| [05 资源获取](docs/05-getting-resources-in-china.md) | 下载三档、通道实测、大文件截断、下不动交给人、插件安装 | 被下载问题卡住过的人 |
 | [06 把工作留下](docs/06-keeping-the-work.md) | 记录与接力、真相源、可逆性、验证、成本 | 想把长期项目留住的人 |
 
 ![六篇总览](assets/card-overview.png)
