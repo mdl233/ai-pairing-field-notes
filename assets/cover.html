@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>ai-pairing-field-notes · 封面</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 750px; height: 485px; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background:
+      radial-gradient(1200px 600px at 78% 18%, rgba(90,169,230,0.28), transparent 60%),
+      radial-gradient(900px 500px at 20% 88%, rgba(120,90,230,0.22), transparent 62%),
+      linear-gradient(135deg, #0c0e13 0%, #141a26 58%, #1b2233 100%);
+    color: #e6e6e6;
+    padding: 40px 44px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(600px 380px at 50% 50%, #000 30%, transparent 78%);
+    -webkit-mask-image: radial-gradient(600px 380px at 50% 50%, #000 30%, transparent 78%);
+  }
+  .inner { position: relative; z-index: 2; }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #9fb3ff;
+    border: 1px solid rgba(159,179,255,0.35);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 46px;
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: 1px;
+    color: #f7f9fc;
+  }
+  h1 .accent {
+    background: linear-gradient(90deg, #7fb6f0, #9f8cf0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .sub {
+    margin-top: 18px;
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: #a8b2c0;
+  }
+  .sub b { color: #d7dee8; font-weight: 600; }
+  .foot {
+    margin-top: 26px;
+    font-size: 12px;
+    color: #6f7a89;
+    letter-spacing: 0.4px;
+  }
+</style>
+</head>
+<body>
+  <div class="grid-lines"></div>
+  <div class="inner">
+    <div class="tag">AI 结对 · 实战笔记</div>
+    <h1>跟 AI 结对干活<br><span class="accent">真踩过的坑</span></h1>
+    <div class="sub">
+      <b>101 条</b>真实坑 · 零基础入门 · 协作纪律<br>
+      六篇，全都来自一个人加一个 AI 的真实项目
+    </div>
+    <div class="foot">github.com/mdl233/ai-pairing-field-notes</div>
+  </div>
+</body>
+</html>
